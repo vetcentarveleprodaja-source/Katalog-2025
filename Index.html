@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Katalog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .filter-menu {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filter-menu button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            background: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .filter-menu button:hover {
+            background: #555;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .item:hover {
+            transform: scale(1.03);
+        }
+        .item img {
+            width: 100%;
+            display: block;
+        }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .modal img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .close {
+            background: #ff5a5a;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>TATRAPET Online Katalog</h1><div class="filter-menu">
+    <button onclick="filterItems('all')">Sve</button>
+    <button onclick="filterItems('Pas')">
+    <img src="img/Pas.jpeg" alt="PAS" style="height: 50px;">
+</button>
+    <button onclick="filterItems('mačka')"><img src="img/macka.jpeg" alt="MAČKA" style="height: 50px;">
+    </button>
+</div>
+
+<h2>PAS</h2>
+<div class="gallery">
+    <div class="item Pas" onclick="openModal('img/408,03.jpg', 'DEKA ZA LJUBIMCA', 'Cijena: 15,25KM', 'Deka za ljubimca 100x140cm ')">
+        <img src="img/408,03.jpg" alt="408,03">
+    </div>
+    <div class="item Pas" onclick="openModal('img/409,16.jpg', 'OVALNI KREVET SA JASTUKOM', 'Cijena: 48,15KM', 'Ovalni krevet sa jastukom 57cm')">
+        <img src="img/409,16.jpg" alt="Ovalni krevet sa jastukom">
+    </div>
+    <div class="item Pas"onclick="openModal('img/413,01.jpg','TRANSPORTER BOX', 'Cijena: S-49KM M-65,45KM L-70KM', 'S=50X33X29cm M=55X36X32cm L=60X40X42cm')">
+        <img src="img/413,01.jpg" alt="Transporter box">
+    </div>
+<h2>MAČKA</h2>
+<div class="gallery">
+    <div class="item Mačka" onclick="openModal('img/proizvod3.jpg', '', 'Cijena: ', '')">
+        <img src="img/proizvod3.jpg" alt="">
+    </div>
+</div>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <img id="modal-img" src="" alt="">
+        <h2 id="modal-title"></h2>
+        <p id="modal-price"></p>
+        <p id="modal-desc"></p>
+        <button class="close" onclick="closeModal()">Zatvori</button>
+    </div>
+</div>
+
+<script>
+    function openModal(img, title, price, desc) {
+        document.getElementById('modal-img').src = img;
+        document.getElementById('modal-title').innerText = title;
+        document.getElementById('modal-price').innerText = price;
+        document.getElementById('modal-desc').innerText = desc;
+        document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('modal')) {
+            closeModal();
+        }
+    }
+
+    function filterItems(category) {
+        let items = document.querySelectorAll('.item');
+        items.forEach(item => {
+            if (category === 'all' || item.classList.contains(category)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
